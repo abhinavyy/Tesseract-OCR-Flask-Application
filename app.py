@@ -2,8 +2,9 @@ from flask import Flask, request, render_template, redirect, url_for
 import os
 import cv2
 import pytesseract
-from gtts import gTTS
+from gtts import gTTS #Use gTTS to convert the translated text into an audio file.
 from googletrans import Translator
+#Pillow is versatile and widely used for tasks ranging from simple image manipulations to complex image processing workflows.
 from PIL import Image
 import numpy as np
 
@@ -19,7 +20,9 @@ os.makedirs('static/audio', exist_ok=True)
 def preprocess_image(img_path):
     img = cv2.imread(img_path)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    #The bilateral filter is effective for applications where you need to reduce noise while preserving important features like edges.
     noise_removed = cv2.bilateralFilter(gray, d=5, sigmaColor=75, sigmaSpace=75)
+    #Adaptive thresholding is particularly useful for images with varying illumination, allowing for more accurate segmentation and analysis.
     thresh = cv2.adaptiveThreshold(noise_removed, 255, 
                                    cv2.ADAPTIVE_THRESH_GAUSSIAN_C, 
                                    cv2.THRESH_BINARY, 
